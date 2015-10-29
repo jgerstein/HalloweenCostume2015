@@ -7,30 +7,40 @@
 //declare an array of LEDs
 CRGB leds[NUM_LEDS];
 
-int hue = 0;
-int startHue = 0;
-int t = 10;
+//dclare an array of hues and an array of bright
+float hues[NUM_LEDS];
+float bright[NUM_LEDS];
+float change[NUM_LEDS];
+
+int hue = 30;
+
+int waitTime = 10;
 
 void setup() {
   delay(3000);
   //add the LEDs and set brightness
   LEDS.addLeds<WS2812B, 5, GRB>(leds, NUM_LEDS);
   LEDS.setBrightness(80);
+
+  for (int i = 0; i < NUM_LEDS; i++) {
+    hues[i] = random(255);
+    bright[i] = random(50,200);
+    change[i] = random(-1,1);
+  }
 }
 
 void loop() {
   //go through the entire array and assign a color to each LED
   for (int i = 0; i < NUM_LEDS; i++) {
-    leds[i] = CHSV(hue, 255, 255);
+    leds[i] = CHSV(hues[i], 0, bright[i]);
+    bright[i] += change[i];
+    if (bright[i] > 250 || bright[i] < 5) {
+      change[i] *= -1;
+    }
   }
+
 
   //display the colors
   LEDS.show();
-  delay(t);
-
-  //update colors
-  hue++;
-  if (hue > 255) {
-    hue = 0;
-  }
+  delay(waitTime);
 }
