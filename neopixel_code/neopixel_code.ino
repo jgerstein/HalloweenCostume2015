@@ -2,7 +2,7 @@
 #include<FastLED.h>
 
 //define the number of LEDs being used
-#define NUM_LEDS 89
+#define NUM_LEDS 56
 
 //declare an array of LEDs
 CRGB leds[NUM_LEDS];
@@ -14,7 +14,7 @@ float change[NUM_LEDS];
 
 int hue = 30;
 
-int waitTime = 10;
+int waitTime = 5;
 
 void setup() {
   delay(3000);
